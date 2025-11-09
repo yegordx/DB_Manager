@@ -4,8 +4,8 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Lab1.Desktop.Services;
-using Lab1.Models;
 using Lab1.Desktop.Views;
+using Lab1.Models;
 
 namespace Lab1.Desktop.ViewModels
 {
@@ -14,9 +14,14 @@ namespace Lab1.Desktop.ViewModels
         private readonly DatabaseService _dbService = new();
         private readonly MainWindow _mainWindow;
 
-        [ObservableProperty] private ObservableCollection<Database> databases = new();
-        [ObservableProperty] private Database? selectedDatabase;
-        [ObservableProperty] private string newDatabaseName = string.Empty;
+        [ObservableProperty]
+        private ObservableCollection<Database> databases = new();
+
+        [ObservableProperty]
+        private Database? selectedDatabase;
+
+        [ObservableProperty]
+        private string newDatabaseName = string.Empty;
 
         public DatabasesViewModel(MainWindow mainWindow)
         {
@@ -59,8 +64,8 @@ namespace Lab1.Desktop.ViewModels
             try
             {
                 await _dbService.CreateAsync(NewDatabaseName);
-                await LoadAsync();
                 NewDatabaseName = string.Empty;
+                await LoadAsync();
             }
             catch (Exception ex)
             {
@@ -73,7 +78,9 @@ namespace Lab1.Desktop.ViewModels
             if (db == null) return;
 
             if (MessageBox.Show($"Delete database '{db.Name}'?",
-                "Confirm", MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+                                "Confirm",
+                                MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+                return;
 
             try
             {

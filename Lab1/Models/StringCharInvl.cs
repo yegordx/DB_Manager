@@ -1,5 +1,6 @@
 ﻿namespace Lab1.Models;
 
+
 public class StringCharInvl
 {
     public CharInvl Interval { get; set; }

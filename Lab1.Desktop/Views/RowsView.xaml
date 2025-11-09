@@ -4,8 +4,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             d:DesignHeight="700" d:DesignWidth="1000"
-             Background="#1E1E1E">
+             Background="#1E1E1E"
+             d:DesignHeight="700" d:DesignWidth="1000">
 
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -17,38 +17,111 @@
         <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
             <Button Content="Add Row"
                     Command="{Binding AddCommand}"
-                    Margin="0,0,8,0" Width="100"/>
+                    Margin="0,0,8,0"
+                    Width="90"/>
             <Button Content="Update"
                     Command="{Binding UpdateCommand}"
-                    Margin="0,0,8,0" Width="100"/>
+                    Margin="0,0,8,0"
+                    Width="90"/>
             <Button Content="Delete"
                     Command="{Binding DeleteCommand}"
-                    Margin="0,0,8,0" Width="100" Foreground="Red"/>
+                    Foreground="Red"
+                    Margin="0,0,8,0"
+                    Width="90"/>
             <Button Content="Refresh"
                     Command="{Binding LoadCommand}"
-                    Width="100"/>
+                    Width="90"/>
         </StackPanel>
 
-        <DataGrid Grid.Row="1"
-                  ItemsSource="{Binding Rows}"
-                  SelectedItem="{Binding SelectedRow}"
+        <DataGrid x:Name="RowsGrid"
+                  Grid.Row="1"
                   AutoGenerateColumns="False"
                   CanUserAddRows="False"
-                  IsReadOnly="False"
-                  Background="#2D2D2D"
-                  Foreground="White"
+                  ItemsSource="{Binding Rows}"
+                  SelectedItem="{Binding SelectedRow}"
+                  Margin="0,5,0,0"
+                  HeadersVisibility="Column"
+                  RowHeaderWidth="0"
+                  CellEditEnding="RowsGrid_CellEditEnding"
+                  
+                  GridLinesVisibility="All"
+                  HorizontalGridLinesBrush="#444"
+                  VerticalGridLinesBrush="#444"
+                  Background="{StaticResource PanelBackground}"
+                  Foreground="{StaticResource AppForeground}"
                   BorderBrush="#444"
-                  Margin="0,0,0,10">
+                  BorderThickness="1">
+
+            <DataGrid.Resources>
+
+                <Style x:Key="CenterTextBlockStyle" TargetType="TextBlock">
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="TextAlignment" Value="Center"/>
+                </Style>
+
+                <Style x:Key="CenterTextBoxStyle" TargetType="TextBox">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="Padding" Value="0"/>
+                </Style>
+
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="{StaticResource PanelBackground}"/>
+                    <Setter Property="Foreground" Value="{StaticResource AppForeground}"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#404040"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+
+                <Style TargetType="DataGridCell">
+                    <Setter Property="Background" Value="{StaticResource PanelBackground}"/>
+                    <Setter Property="Foreground" Value="{StaticResource AppForeground}"/>
+                    <Setter Property="BorderBrush" Value="#444"/>
+                    <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="Padding" Value="4,2"/>
+                </Style>
+
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#333"/>
+                    <Setter Property="Foreground" Value="{StaticResource AppForeground}"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="BorderBrush" Value="#444"/>
+                    <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                    <Setter Property="Height" Value="28"/>
+                </Style>
+
+            </DataGrid.Resources>
+
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Row Id" Binding="{Binding Id}" Width="200" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Values (JSON)" Binding="{Binding ValuesJson}" Width="*" />
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}"
+                                    ElementStyle="{StaticResource CenterTextBlockStyle}"
+                                    EditingElementStyle="{StaticResource CenterTextBoxStyle}"/>
+                <DataGridTextColumn Header="Age" Binding="{Binding Values[Age]}"
+                                    ElementStyle="{StaticResource CenterTextBlockStyle}"
+                                    EditingElementStyle="{StaticResource CenterTextBoxStyle}"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Values[Name]}"
+                                    ElementStyle="{StaticResource CenterTextBlockStyle}"
+                                    EditingElementStyle="{StaticResource CenterTextBoxStyle}"/>
             </DataGrid.Columns>
         </DataGrid>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0,10,0,0">
             <Button Content="← Back"
                     Command="{Binding BackCommand}"
-                    Width="120" Height="32"/>
+                    Width="120"
+                    Height="32"/>
         </StackPanel>
     </Grid>
 </UserControl>

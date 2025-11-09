@@ -1,0 +1,72 @@
+<Window x:Class="Lab1.Desktop.Views.IntersectTablesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Intersect Tables"
+        Height="360" Width="520"
+        Background="#1E1E1E"
+        WindowStartupLocation="CenterOwner">
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0"
+                    Orientation="Vertical"
+                    Margin="0,0,0,10">
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                <TextBlock Text="Select Table A:" Width="110" VerticalAlignment="Center" Foreground="White"/>
+                <ComboBox x:Name="TableACombo"
+                          Width="320"
+                          DisplayMemberPath="Name"
+                          SelectedValuePath="Id"
+                          SelectionChanged="TableSelectionChanged"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Select Table B:" Width="110" VerticalAlignment="Center" Foreground="White"/>
+                <ComboBox x:Name="TableBCombo"
+                          Width="320"
+                          DisplayMemberPath="Name"
+                          SelectedValuePath="Id"
+                          SelectionChanged="TableSelectionChanged"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    Margin="0,0,0,10">
+            <TextBlock Text="Result table name:" Width="110" VerticalAlignment="Center" Foreground="White"/>
+            <TextBox x:Name="ResultNameBox"
+                     Width="320"/>
+        </StackPanel>
+
+        <GroupBox Grid.Row="2"
+                  Header="Columns to compare (empty = all)"
+                  Foreground="White">
+            <Border BorderBrush="#444" BorderThickness="1" Padding="4">
+                <ListBox x:Name="ColumnsList"
+                         SelectionMode="Extended"
+                         Background="#2D2D2D"
+                         Foreground="White"/>
+            </Border>
+        </GroupBox>
+
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0,10,0,0">
+            <Button Content="OK"
+                    Width="80"
+                    Margin="0,0,8,0"
+                    Click="Ok_Click"/>
+            <Button Content="Cancel"
+                    Width="80"
+                    IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</Window>

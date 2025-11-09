@@ -4,8 +4,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             d:DesignHeight="700" d:DesignWidth="1000"
-             Background="#1E1E1E">
+             d:DesignHeight="700" d:DesignWidth="1000">
 
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -25,20 +24,22 @@
                     Width="90"/>
             <Button Content="Refresh"
                     Command="{Binding LoadCommand}"
+                    Margin="0,0,8,0"
                     Width="90"/>
+            <Button Content="Intersect..."
+                    Command="{Binding OpenIntersectDialogCommand}"
+                    Width="100"/>
         </StackPanel>
 
         <ListView Grid.Row="1"
                   ItemsSource="{Binding Tables}"
-                  SelectedItem="{Binding SelectedTable}"
-                  Background="#2D2D2D"
-                  Foreground="White"
-                  BorderBrush="#444">
+                  SelectedItem="{Binding SelectedTable}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Table Name" Width="250" DisplayMemberBinding="{Binding Name}" />
                     <GridViewColumn Header="Id" Width="400" DisplayMemberBinding="{Binding Id}" />
-                    <GridViewColumn Header="Actions" Width="220">
+
+                    <GridViewColumn Header="Actions" Width="320">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -47,6 +48,13 @@
                                             CommandParameter="{Binding}"
                                             Margin="0,0,8,0"
                                             Width="100"/>
+
+                                    <Button Content="Columns"
+                                            Command="{Binding DataContext.OpenColumnsCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                            CommandParameter="{Binding}"
+                                            Margin="0,0,8,0"
+                                            Width="100"/>
+
                                     <Button Content="Delete"
                                             Foreground="Red"
                                             Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
@@ -60,10 +68,14 @@
             </ListView.View>
         </ListView>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0,10,0,0">
             <Button Content="← Back"
                     Command="{Binding BackCommand}"
-                    Width="120" Height="32"/>
+                    Width="120"
+                    Height="32"/>
         </StackPanel>
     </Grid>
 </UserControl>

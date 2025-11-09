@@ -10,10 +10,29 @@ public class ColumnService : ApiServiceBase
         return table?.Columns ?? new List<Column>();
     }
 
-    public async Task AddColumnAsync(Guid databaseId, Guid tableId, string name, FieldType type)
+    public async Task AddColumnAsync(
+        Guid databaseId,
+        Guid tableId,
+        string name,
+        FieldType type,
+        char? start = null,
+        char? end = null)
     {
         var typeStr = Uri.EscapeDataString(type.ToString());
-        await PostAsync<object>($"tables/addColumn?databaseId={databaseId}&tableId={tableId}&name={Uri.EscapeDataString(name)}&type={typeStr}");
+        var url =
+            $"tables/addColumn?databaseId={databaseId}" +
+            $"&tableId={tableId}" +
+            $"&name={Uri.EscapeDataString(name)}" +
+            $"&type={typeStr}";
+
+        if ((type == FieldType.CharInvl || type == FieldType.StringCharInvl)
+            && start.HasValue && end.HasValue)
+        {
+            url += $"&start={Uri.EscapeDataString(start.Value.ToString())}" +
+                   $"&end={Uri.EscapeDataString(end.Value.ToString())}";
+        }
+
+        await PostAsync<object>(url);
     }
 
     public async Task DeleteColumnAsync(Guid databaseId, Guid tableId, Guid columnId)

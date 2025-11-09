@@ -11,4 +11,5 @@ namespace Lab1.Desktop.Views
             DataContext = new DatabasesViewModel(mainWindow);
         }
     }
+
 }

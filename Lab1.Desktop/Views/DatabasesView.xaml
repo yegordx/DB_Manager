@@ -1,10 +1,11 @@
-<UserControl x:Class="Lab1.Desktop.Views.DatabasesView"
+﻿<UserControl x:Class="Lab1.Desktop.Views.DatabasesView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             d:DesignHeight="700" d:DesignWidth="1100"
+             d:DesignHeight="700"
+             d:DesignWidth="1100"
              Background="#1E1E1E">
 
     <Grid Margin="20">
@@ -30,31 +31,40 @@
         <ListView Grid.Row="1"
                   ItemsSource="{Binding Databases}"
                   SelectedItem="{Binding SelectedDatabase}"
-                  Background="#2D2D2D"
-                  Foreground="White"
-                  BorderBrush="#444">
+                  >
+
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Database Name" Width="250" DisplayMemberBinding="{Binding Name}" />
-                    <GridViewColumn Header="Id" Width="400" DisplayMemberBinding="{Binding Id}" />
+                    <GridViewColumn Header="Database Name"
+                                    Width="250"
+                                    DisplayMemberBinding="{Binding Name}" />
+
+                    <GridViewColumn Header="Id"
+                                    Width="400"
+                                    DisplayMemberBinding="{Binding Id}" />
+
                     <GridViewColumn Header="Actions" Width="220">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <Button Content="Open"
-                                            Command="{Binding DataContext.OpenCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
-                                            CommandParameter="{Binding}"
                                             Margin="0,0,8,0"
-                                            Width="60"/>
+                                            Width="60"
+                                            Command="{Binding DataContext.OpenCommand,
+                                                              RelativeSource={RelativeSource AncestorType=ListView}}"
+                                            CommandParameter="{Binding}"/>
+
                                     <Button Content="Delete"
                                             Foreground="Red"
-                                            Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
-                                            CommandParameter="{Binding}"
-                                            Width="70"/>
+                                            Width="70"
+                                            Command="{Binding DataContext.DeleteCommand,
+                                                              RelativeSource={RelativeSource AncestorType=ListView}}"
+                                            CommandParameter="{Binding}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+
                 </GridView>
             </ListView.View>
         </ListView>
