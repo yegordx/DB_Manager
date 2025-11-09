@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="Lab1.Desktop.Views.RowsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="700" d:DesignWidth="1000"
+             Background="#1E1E1E">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+            <Button Content="Add Row"
+                    Command="{Binding AddCommand}"
+                    Margin="0,0,8,0" Width="100"/>
+            <Button Content="Update"
+                    Command="{Binding UpdateCommand}"
+                    Margin="0,0,8,0" Width="100"/>
+            <Button Content="Delete"
+                    Command="{Binding DeleteCommand}"
+                    Margin="0,0,8,0" Width="100" Foreground="Red"/>
+            <Button Content="Refresh"
+                    Command="{Binding LoadCommand}"
+                    Width="100"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1"
+                  ItemsSource="{Binding Rows}"
+                  SelectedItem="{Binding SelectedRow}"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  IsReadOnly="False"
+                  Background="#2D2D2D"
+                  Foreground="White"
+                  BorderBrush="#444"
+                  Margin="0,0,0,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Row Id" Binding="{Binding Id}" Width="200" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Values (JSON)" Binding="{Binding ValuesJson}" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button Content="← Back"
+                    Command="{Binding BackCommand}"
+                    Width="120" Height="32"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
